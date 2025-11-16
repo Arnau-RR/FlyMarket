@@ -8,20 +8,18 @@
 import SwiftUI
 
 struct ProductCellView: View {
-    @StateObject private var viewModel: ProductCellViewModel
-    private let onChange: ((ProductRemote, QuantityChange, Int) -> Void)?
+    @ObservedObject private var viewModel: ProductCellViewModel
+    private let onChange: ((ProductRemote, QuantityChange) -> Void)?
     
     init(
         product: ProductRemote,
         currency: Currency,
-        initialQuantity: Int = 0,
-        onChange: ((ProductRemote, QuantityChange, Int) -> Void)? = nil
+        onChange: ((ProductRemote, QuantityChange) -> Void)? = nil
     ) {
-        _viewModel = StateObject(
+        _viewModel = ObservedObject(
             wrappedValue: ProductCellViewModel(
                 product: product,
                 currency: currency,
-                initialQuantity: initialQuantity
             )
         )
         self.onChange = onChange
@@ -43,7 +41,7 @@ struct ProductCellView: View {
         ZStack(alignment: .topLeading) {
             imageBackground()
             colorBlack()
-            if (viewModel.quantity != 0) {
+            if (viewModel.returnProductQuantity() != 0) {
                 counterComponent
             }
             textAndComponents
@@ -54,31 +52,23 @@ struct ProductCellView: View {
 
 extension ProductCellView {
     private func imageBackground() -> some View {
-        //let height = width / 0.68 // Mantiene la proporción
-        
         return AsyncImage(url: URL(string: viewModel.product.imageUrl)) { image in
             image
                 .resizable()
                 .scaledToFit()
-            //.frame(width: width, height: height)
         } placeholder: {
             ZStack {
                 Color.gray.opacity(0.3)
                 ProgressView()
             }
-            //.frame(width: width, height: height)
         }
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .clipped()
     }
     
     private func colorBlack () -> some View {
-        //&let height = width / 0.68 // Mantiene la proporción
-        
         return Color.black.opacity(0.4)
             .clipShape(RoundedRectangle(cornerRadius: 20))
-        //.frame(width: width, height: height)
-        
     }
     
     private var textAndComponents: some View {
@@ -113,26 +103,24 @@ extension ProductCellView {
     private var counterComponent: some View {
         HStack {
             Spacer()
-            CircularCounterView(text: "\(viewModel.quantity)")
+            CircularCounterView(text: "\(viewModel.returnProductQuantity())")
         }
         .padding(.trailing, 7)
     }
     
     private var buttonsPlusMinorAndPrice: some View {
         HStack (spacing: 15){
-            if (viewModel.quantity != 0) {
+            if (viewModel.returnProductQuantity() != 0) {
                 CircularButton(buttonText: attributedMinor, color: Color.red, size: 44,  width: 44, shape: Capsule(), action: {
-                    viewModel.decrement()
-                    viewModel.product.quantity = viewModel.quantity
-                    onChange?(viewModel.product, .decrement, viewModel.quantity)
+                    //viewModel.decrement()
+                    onChange?(viewModel.product, .decrement)
                 })
             }
             
-            if (viewModel.quantity != viewModel.product.units) {
+            if (viewModel.returnProductQuantity() != viewModel.product.units) {
                 CircularButton(buttonText: attributedPlus, size: 44,  width: 44, shape: Capsule(), action: {
-                    viewModel.increment()
-                    viewModel.product.quantity = viewModel.quantity
-                    onChange?(viewModel.product, .increment, viewModel.quantity)
+                    //viewModel.increment()
+                    onChange?(viewModel.product, .increment)
                 })
             }
             

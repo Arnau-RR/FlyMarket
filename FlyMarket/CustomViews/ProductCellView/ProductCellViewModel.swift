@@ -16,29 +16,44 @@ enum QuantityChange {
 final class ProductCellViewModel: ObservableObject {
     @Published var product: ProductRemote
     @Published var currency: Currency
-    @Published var quantity: Int
     
     init(
         product: ProductRemote,
         currency: Currency,
-        initialQuantity: Int = 0
     ) {
         self.product = product
         self.currency = currency
-        self.quantity = initialQuantity
     }
     
     func showPriceWithCurrency() -> String {
-        return String(product.basePrice) + currency.symbol
+        let number = NSDecimalNumber(value: product.basePrice)
+
+        // Redondea a 2 decimales usando .bankers o .plain según prefieras
+        let rounded = number.rounding(accordingToBehavior:
+                                        NSDecimalNumberHandler(
+                                            roundingMode: .plain,
+                                            scale: 2,
+                                            raiseOnExactness: false,
+                                            raiseOnOverflow: false,
+                                            raiseOnUnderflow: false,
+                                            raiseOnDivideByZero: false
+                                        )
+        )
+        
+        return rounded.stringValue + currency.symbol
     }
     
-    func increment() {
-        quantity += 1
+    func returnProductQuantity() -> Int{
+        return product.quantity
     }
     
-    func decrement() {
-        if quantity > 0 {
-            quantity -= 1
-        }
-    }
+//    func increment() {
+//        product.quantity += 1
+//    }
+//    
+//    func decrement() {
+//        if product.quantity > 0 {
+//            product.quantity -= 1
+//        }
+//    }
 }

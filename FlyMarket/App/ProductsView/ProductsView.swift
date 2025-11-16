@@ -124,16 +124,17 @@ extension ProductsView {
     private var productsList: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(viewModel.products) { product in
-                    ProductCellView(product: product, currency: viewModel.currency) { product, change, newQuantity in
+                ForEach($viewModel.productsWithDiscounts) { $product in
+                    ProductCellView(product: product, currency: viewModel.currency) { product, change in
                         switch change {
                         case .increment:
                             viewModel.addProduct(product)
-                            print("Añadido: \(product.name), cantidad: \(newQuantity)")
+                            print("Añadido: \(product.name), cantidad: \(product.quantity)")
                         case .decrement:
                             viewModel.removeProduct(product)
-                            print("Eliminado: \(product.name), cantidad: \(newQuantity)")
+                            print("Eliminado: \(product.name), cantidad: \(product.quantity)")
                         }
+
                     }
                     .aspectRatio(0.68, contentMode: .fit)
                 }
@@ -146,11 +147,10 @@ extension ProductsView {
     private var buttonsBanner: some View {
         HStack (spacing: 0){
             CircularButton(buttonText: viewModel.attributedPrice, shape: LeftCapsuleShape(), action: {
-                print("Toco botón, navego")
                 viewModel.navigateToReceiptScreen = true
             })
             
-            CircularButton(buttonText: AttributedString(viewModel.selectedCustomerType.rawValue), color: Color(red: 73/255, green: 84/255, blue: 99/255), fontSize: 14, width: 120, shape:
+            CircularButton(buttonText: AttributedString(viewModel.selectedCustomerType.name), color: Color(red: 73/255, green: 84/255, blue: 99/255), fontSize: 14, width: 120, shape:
                             RightCapsuleShape(), action: {
                 viewModel.showListPopup = true
             })
@@ -188,9 +188,9 @@ extension ProductsView {
             isPresented: $viewModel.showListPopup,
             title: "_Customer Type",
             subtitle: "_Select the applicable customer type for this sale",
-            items: viewModel.customerTypes,
+            items: viewModel.getAllCustomerTypesNames,
             onSelect: { item in
-                //viewModel.selectedSaleTypeAttributed(item)
+                viewModel.selectCustomerType(item)
                 viewModel.showListPopup = false
             }
         )
