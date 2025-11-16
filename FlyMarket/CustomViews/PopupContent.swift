@@ -432,11 +432,107 @@ struct TextInputPopup: View {
     }
 }
 
+// MARK: - Loading Popup
+struct LoadingPopup: View {
+    let title: String
+    let message: String
+    
+    @State private var opacity: Double = 0
+    @State private var scale: CGFloat = 0.8
+    @State private var offset: CGFloat = 20
+    @State private var rotationAngle: Double = 0
+    
+    init(
+        title: String = "Loading",
+        message: String = "Loading products, please wait..."
+    ) {
+        self.title = title
+        self.message = message
+    }
+    
+    var body: some View {
+        ZStack {
+            // Backdrop
+            Color.black.opacity(0.1)
+                .ignoresSafeArea()
+                .opacity(opacity)
+            
+            // Popup Container
+            VStack(spacing: 0) {
+                VStack(spacing: 24) {
+                    // Progress Circle
+                    ZStack {
+                        Circle()
+                            .stroke(Color.black.opacity(0.1), lineWidth: 4)
+                            .frame(width: 60, height: 60)
+                        
+                        Circle()
+                            .trim(from: 0, to: 0.7)
+                            .stroke(
+                                LinearGradient(
+                                    colors: [Color.black, Color(.darkGray)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                style: StrokeStyle(lineWidth: 4, lineCap: .round)
+                            )
+                            .frame(width: 60, height: 60)
+                            .rotationEffect(Angle(degrees: rotationAngle))
+                            .animation(
+                                Animation.linear(duration: 1)
+                                    .repeatForever(autoreverses: false),
+                                value: rotationAngle
+                            )
+                    }
+                    .padding(.top, 32)
+                    
+                    // Text content
+                    VStack(spacing: 8) {
+                        Text(title)
+                            .font(.system(size: 22, weight: .bold, design: .rounded))
+                            .foregroundColor(.primary)
+                        
+                        Text(message)
+                            .font(.system(size: 15, weight: .regular, design: .rounded))
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.horizontal, 20)
+                    }
+                    .padding(.bottom, 32)
+                }
+            }
+            .frame(maxWidth: 320)
+            .background(
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                    .fill(Color.white)
+                    .shadow(color: Color.black.opacity(0.15), radius: 30, x: 0, y: 15)
+            )
+            .padding(.horizontal, 24)
+            .scaleEffect(scale)
+            .offset(y: offset)
+            .opacity(opacity)
+        }
+        .onAppear {
+            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                opacity = 1
+                scale = 1
+                offset = 0
+            }
+            rotationAngle = 360
+        }
+        .onDisappear {
+            rotationAngle = 0
+        }
+    }
+}
+
 // MARK: - Usage Examples
 struct PopupExamplesView: View {
     @State private var showListPopup = false
     @State private var showConfirmPopup = false
     @State private var showInputPopup = false
+    @State private var showLoadingPopup = false
     @State private var selectedItem = "None"
     @State private var inputText = ""
     
@@ -467,6 +563,16 @@ struct PopupExamplesView: View {
                     // Input Popup Button
                     Button("Show Text Input") {
                         showInputPopup = true
+                    }
+                    .buttonStyle(buttonBlackWhiteStyle())
+                    
+                    Button("Show Loading Popup") {
+                        showLoadingPopup = true
+                        
+                        // Simulate loading for 3 seconds
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            showLoadingPopup = false
+                        }
                     }
                     .buttonStyle(buttonBlackWhiteStyle())
                 }
@@ -511,6 +617,12 @@ struct PopupExamplesView: View {
                         onSubmit: { text in
                             inputText = text
                         }
+                    )
+                }
+                if showLoadingPopup {
+                    LoadingPopup(
+                        title: "Loading",
+                        message: "Loading products, please wait..."
                     )
                 }
             }

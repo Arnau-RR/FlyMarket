@@ -15,7 +15,7 @@ enum ActivePaymentOverlay {
 final class ReceiptViewModel: ObservableObject {
     
     // Productos del recibo
-    @Published var products: [ProductItem]
+    @Published var products: [ProductRemote]
     
     @Published var currency: Currency
     
@@ -26,7 +26,7 @@ final class ReceiptViewModel: ObservableObject {
     
     @Published var activePaymentOverlay: ActivePaymentOverlay? = nil
     
-    init(products: [ProductItem], currency: Currency) {
+    init(products: [ProductRemote], currency: Currency) {
         self.products = products
         self.currency = currency
     }

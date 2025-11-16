@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductRectangularCellView: View {
     
-    let productItem: ProductItem
+    let productItem: ProductRemote
     var currency: Currency = .eur
     
     var body: some View {
@@ -70,8 +70,9 @@ extension ProductRectangularCellView {
 }
 
 #Preview {
-    ProductRectangularCellView(productItem: ProductItem(imageUrl: "https://images.pexels.com/photos/327158/pexels-photo-327158.jpeg",
+    ProductRectangularCellView(productItem: ProductRemote(imageUrl: "https://images.pexels.com/photos/327158/pexels-photo-327158.jpeg",
                                                         name: "Chicken Sandwich",
                                                         units: 2,
-                                                        basePrice: 19.99))
+                                                        basePrice: 19.99,
+                                                        category: "Sandwitch"))
 }

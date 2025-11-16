@@ -32,6 +32,9 @@ struct ProductsView: View {
                 .popup(isPresented: $viewModel.showCurrencyPopup) {
                     showCurrencyConverterPopupView
                 }
+                .popup(isPresented: $viewModel.isLoading) {
+                    showLoadingPopup
+                }
             }
             .navigationDestination(isPresented: $viewModel.navigateToReceiptScreen) {
                 ReceiptView(products: viewModel.productsSelected, currency: viewModel.currency)
@@ -197,6 +200,13 @@ extension ProductsView {
         CurrencyConverterView(baseAmount: viewModel.returnTotalAmountString())
             .presentationDetents([.medium, .large])
             .presentationDragIndicator(.visible)
+    }
+    
+    private var showLoadingPopup: some View {
+        LoadingPopup(
+            title: "Loading",
+            message: "Loading products, please wait..."
+        )
     }
 }
 

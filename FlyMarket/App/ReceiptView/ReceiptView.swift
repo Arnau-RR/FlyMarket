@@ -11,7 +11,7 @@ struct ReceiptView: View {
     
     @StateObject private var viewModel: ReceiptViewModel
        
-    init(products: [ProductItem], currency: Currency) {
+    init(products: [ProductRemote], currency: Currency) {
         _viewModel = StateObject(wrappedValue: ReceiptViewModel(products: products, currency: currency))
        }
     

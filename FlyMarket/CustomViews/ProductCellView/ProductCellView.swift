@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ProductCellView: View {
     @StateObject private var viewModel: ProductCellViewModel
-    private let onChange: ((ProductItem, QuantityChange, Int) -> Void)?
+    private let onChange: ((ProductRemote, QuantityChange, Int) -> Void)?
     
     init(
-        product: ProductItem,
+        product: ProductRemote,
         currency: Currency,
         initialQuantity: Int = 0,
-        onChange: ((ProductItem, QuantityChange, Int) -> Void)? = nil
+        onChange: ((ProductRemote, QuantityChange, Int) -> Void)? = nil
     ) {
         _viewModel = StateObject(
             wrappedValue: ProductCellViewModel(

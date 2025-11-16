@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5734A5082EC9E3E100282434 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 5734A5072EC9E3E100282434 /* Alamofire */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		577A49BA2EC4E1C8005A9788 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5734A5082EC9E3E100282434 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = FlyMarket;
 			packageProductDependencies = (
+				5734A5072EC9E3E100282434 /* Alamofire */,
 			);
 			productName = FlyMarket;
 			productReference = 577A49AC2EC4E1C7005A9788 /* FlyMarket.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 577A49A32EC4E1C7005A9788;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5734A5062EC9E3E100282434 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 577A49AD2EC4E1C7005A9788 /* Products */;
 			projectDirPath = "";
@@ -558,6 +567,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5734A5062EC9E3E100282434 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5734A5072EC9E3E100282434 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5734A5062EC9E3E100282434 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 577A49A42EC4E1C7005A9788 /* Project object */;
 }

@@ -25,7 +25,7 @@ enum CustomerType: String, CaseIterable {
 class ProductsViewModel: ObservableObject {
     
     // MARK: - Published Properties
-    @Published var products: [ProductItem] = []
+    @Published var products: [ProductRemote] = []
     @Published var selectedCustomerType: CustomerType = .retail
     @Published var showSaleTypeMenu: Bool = false
     @Published var showListPopup: Bool = false
@@ -37,7 +37,10 @@ class ProductsViewModel: ObservableObject {
         }
     }
     @Published var navigateToReceiptScreen = false
-    @Published var productsSelected: [ProductItem] = []
+    @Published var productsSelected: [ProductRemote] = []
+    
+    @Published var isLoading: Bool = false
+    @Published var errorMessage: String?
     
     // MARK: - Computed Properties
     var selectedSaleTypeAttributed: AttributedString {
@@ -69,9 +72,31 @@ class ProductsViewModel: ObservableObject {
         loadProducts()
     }
     
-    // MARK: - Data Loading
+//    // MARK: - Data Loading
+//    private func loadProducts() {
+//        products = MockData.sampleProducts
+//    }
+    
     private func loadProducts() {
-        products = MockData.sampleProducts
+        isLoading = true
+        errorMessage = nil
+        
+        FlyMarketRepository.shared.fetchProducts { [weak self] result in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.isLoading = false
+                switch result {
+                case .success(let remoteProducts):
+                    self.products = remoteProducts
+                case .failure(let error):
+                    print("Error fetching products: \(error)")
+                    self.products = []
+                    self.errorMessage = "Error fetching products: \(error)"
+                    print(error)
+                }
+            }
+        }
     }
     
     // MARK: - Actions
@@ -103,12 +128,12 @@ class ProductsViewModel: ObservableObject {
         currency = newCurrency
     }
     
-    func addProduct(_ product: ProductItem) {
+    func addProduct(_ product: ProductRemote) {
         productsSelected.append(product)
         recalculateTotal()
     }
     
-    func removeProduct(_ product: ProductItem) {
+    func removeProduct(_ product: ProductRemote) {
         if let index = productsSelected.firstIndex(where: { $0.id == product.id }) {
             productsSelected.remove(at: index)
         }

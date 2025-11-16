@@ -14,12 +14,12 @@ enum QuantityChange {
 }
 
 final class ProductCellViewModel: ObservableObject {
-    @Published var product: ProductItem
+    @Published var product: ProductRemote
     @Published var currency: Currency
     @Published var quantity: Int
     
     init(
-        product: ProductItem,
+        product: ProductRemote,
         currency: Currency,
         initialQuantity: Int = 0
     ) {
