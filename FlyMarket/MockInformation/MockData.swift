@@ -1,0 +1,148 @@
+//
+//  MockData.swift
+//  FlyMarket
+//
+//  Created by Arnau Rivas Rivas on 15/11/25.
+//
+
+import Foundation
+
+class MockData {
+    static let sampleProducts: [ProductItem] = [
+        // Sandwiches
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1603901/pexels-photo-1603901.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Chicken Sandwich",
+                    units: 2,
+                    basePrice: 8.99),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1633578/pexels-photo-1633578.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Beef Burger",
+                    units: 3,
+                    basePrice: 12.50),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Club Sandwich",
+                    units: 4,
+                    basePrice: 9.75),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1251198/pexels-photo-1251198.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Veggie Burger",
+                    units: 2,
+                    basePrice: 10.99),
+        
+        // Pizzas
+        ProductItem(imageUrl: "https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Pepperoni Pizza",
+                    units: 5,
+                    basePrice: 15.99),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/2147491/pexels-photo-2147491.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Margherita Pizza",
+                    units: 3,
+                    basePrice: 13.50),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/845812/pexels-photo-845812.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "BBQ Chicken Pizza",
+                    units: 4,
+                    basePrice: 16.99),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1653877/pexels-photo-1653877.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Hawaiian Pizza",
+                    units: 2,
+                    basePrice: 14.75),
+        
+        // Ensaladas
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1639562/pexels-photo-1639562.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Caesar Salad",
+                    units: 6,
+                    basePrice: 11.50),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1059905/pexels-photo-1059905.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Greek Salad",
+                    units: 3,
+                    basePrice: 10.25),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1640770/pexels-photo-1640770.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Caprese Salad",
+                    units: 4,
+                    basePrice: 9.99),
+        
+        // Acompañamientos
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1893556/pexels-photo-1893556.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "French Fries",
+                    units: 8,
+                    basePrice: 4.50),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/2089717/pexels-photo-2089717.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Onion Rings",
+                    units: 5,
+                    basePrice: 5.25),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/6419720/pexels-photo-6419720.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Chicken Wings",
+                    units: 7,
+                    basePrice: 11.99),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/5409015/pexels-photo-5409015.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Mozzarella Sticks",
+                    units: 4,
+                    basePrice: 7.50),
+        
+        // Bebidas
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Orange Juice",
+                    units: 10,
+                    basePrice: 3.50),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1564734/pexels-photo-1564734.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Lemonade",
+                    units: 6,
+                    basePrice: 3.25),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/2775860/pexels-photo-2775860.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Iced Coffee",
+                    units: 5,
+                    basePrice: 4.75),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Coca Cola",
+                    units: 9,
+                    basePrice: 2.99),
+        
+        // Pasta
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Spaghetti Carbonara",
+                    units: 3,
+                    basePrice: 13.99),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1460872/pexels-photo-1460872.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Penne Arrabiata",
+                    units: 4,
+                    basePrice: 12.50),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1438672/pexels-photo-1438672.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Lasagna",
+                    units: 2,
+                    basePrice: 14.99),
+        
+        // Postres
+        ProductItem(imageUrl: "https://images.pexels.com/photos/291528/pexels-photo-291528.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Chocolate Cake",
+                    units: 6,
+                    basePrice: 6.50),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1126359/pexels-photo-1126359.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Cheesecake",
+                    units: 5,
+                    basePrice: 7.25),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1352278/pexels-photo-1352278.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Ice Cream Sundae",
+                    units: 8,
+                    basePrice: 5.75),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/1055272/pexels-photo-1055272.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Tiramisu",
+                    units: 3,
+                    basePrice: 6.99),
+        
+        // Desayunos
+        ProductItem(imageUrl: "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Pancakes",
+                    units: 4,
+                    basePrice: 8.50),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/101533/pexels-photo-101533.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Waffles",
+                    units: 5,
+                    basePrice: 9.25),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/566566/pexels-photo-566566.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "French Toast",
+                    units: 3,
+                    basePrice: 7.99),
+        ProductItem(imageUrl: "https://images.pexels.com/photos/824635/pexels-photo-824635.jpeg?auto=compress&cs=tinysrgb&w=1260",
+                    name: "Croissant",
+                    units: 10,
+                    basePrice: 3.50)
+    ]
+}
