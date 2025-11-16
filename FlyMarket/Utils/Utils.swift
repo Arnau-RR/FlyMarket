@@ -28,8 +28,8 @@ struct Utils {
     /// Calcula el total en función de price y counter de cada producto
     static func totalFormatted(products: [ProductRemote]) -> String {
         let total = products.reduce(into: 0.0) { partial, item in
-            let unitPrice = item.basePrice            // <- ahora es Double
-            let count = item.units                // <- ahora es Int
+            let unitPrice = item.basePrice     // <- Double
+            let count = item.quantity          // <- Int (cambiado de units a quantity)
             partial += unitPrice * Double(count)
         }
         
