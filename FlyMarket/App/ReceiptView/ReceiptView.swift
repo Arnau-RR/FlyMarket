@@ -10,10 +10,23 @@ import SwiftUI
 struct ReceiptView: View {
     
     @StateObject private var viewModel: ReceiptViewModel
-       
-    init(products: [ProductRemote], currency: Currency) {
+    @Environment(\.dismiss) private var dismiss
+    
+    @Binding var isPresented: Bool
+    
+    // Callback para devolver los productos a la vista padre
+    var onComplete: (([ProductRemote]) -> Void)?
+    
+    init(
+        isPresented: Binding<Bool>,
+        products: [ProductRemote],
+        currency: Currency,
+        onComplete: (([ProductRemote]) -> Void)? = nil
+    ) {
+        self._isPresented = isPresented
         _viewModel = StateObject(wrappedValue: ReceiptViewModel(products: products, currency: currency))
-       }
+        self.onComplete = onComplete
+    }
     
     var body: some View {
         ZStack {
@@ -32,6 +45,7 @@ struct ReceiptView: View {
                 cardInformationCard(overlay: overlay)
             }
         }
+        .navigationBarBackButtonHidden(true) // Oculta el botón nativo
         .popup(isPresented: $viewModel.showingSeatMap) {
             SeatMapView(
                 selectedSeat: $viewModel.selectedSeat,
@@ -60,6 +74,23 @@ extension ReceiptView {
             }
             
             Spacer()
+            
+            HStack {
+                Spacer()
+                Button {
+                    withAnimation {
+                        onComplete?(viewModel.products)
+                        isPresented = false
+                        dismiss()
+                    }
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.system(size: 27))
+                        .foregroundColor(.black.opacity(0.55))
+                        .shadow(radius: 4)
+                }
+            }
+            .padding()
         }
     }
     
@@ -108,18 +139,24 @@ extension ReceiptView {
     }
     
     private var listProducts: some View {
-        ScrollView {
-            LazyVStack(spacing: 0) {
-                ForEach(viewModel.products.indices, id: \.self) { index in
-                    ProductRectangularCellView(productItem: viewModel.products[index], currency: viewModel.currency)
-                    
-                    if index < viewModel.products.count - 1 {
-                        Divider()
-                            .padding(.horizontal)
-                    }
+        List {
+            ForEach(viewModel.products.indices, id: \.self) { index in
+                ProductRectangularCellView(
+                    productItem: viewModel.products[index],
+                    currency: viewModel.currency
+                )
+                .listRowInsets(EdgeInsets())
+                //.listRowSeparator(.hidden)
+                .listRowBackground(Color.clear)
+            }
+            .onDelete { indexSet in
+                withAnimation {
+                    viewModel.removeProducts(at: indexSet)
                 }
             }
         }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
     }
     
     private var totalAndSeatBanner: some View {
@@ -198,5 +235,5 @@ extension ReceiptView {
 }
 
 #Preview {
-    ReceiptView(products: MockData.sampleProducts, currency: .eur)
+    ReceiptView(isPresented: .constant(true), products: MockData.sampleProducts, currency: .eur)
 }

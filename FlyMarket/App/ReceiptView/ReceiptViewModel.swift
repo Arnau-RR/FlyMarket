@@ -42,4 +42,13 @@ final class ReceiptViewModel: ObservableObject {
     func parsePrice(_ price: String) -> Double {
         return Utils.parsePrice(price)
     }
+    
+    func removeProducts(at indexSet: IndexSet) {
+        products.remove(atOffsets: indexSet)
+        //calculateTotal()
+    }
+    
+//    private func calculateTotal() {
+//        totalFormatted = Utils.totalFormatted(products: products)
+//    }
 }
