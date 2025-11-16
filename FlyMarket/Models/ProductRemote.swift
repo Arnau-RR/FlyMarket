@@ -31,7 +31,7 @@ struct ProductRemote: Decodable, Identifiable {
     let imageUrl: String
     let name: String
     let units: Int
-    let basePrice: Double
+    var basePrice: Double
     var quantity: Int = 0
     let category: String
     
