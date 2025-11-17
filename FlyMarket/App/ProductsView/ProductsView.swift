@@ -37,7 +37,9 @@ struct ProductsView: View {
                 }
             }
             .navigationDestination(isPresented: $viewModel.navigateToReceiptScreen) {
-                ReceiptView(products: viewModel.productsSelected, currency: viewModel.currency)
+                ReceiptView(isPresented: $viewModel.navigateToReceiptScreen, products: viewModel.productsSelected, currency: viewModel.currency) { updatedProducts in
+                    viewModel.getReceiptProductsUpdated(updateProducts: updatedProducts)
+                }
              }
         }
     }

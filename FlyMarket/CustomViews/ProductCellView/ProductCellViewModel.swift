@@ -28,7 +28,6 @@ final class ProductCellViewModel: ObservableObject {
     func showPriceWithCurrency() -> String {
         let number = NSDecimalNumber(value: product.basePrice)
 
-        // Redondea a 2 decimales usando .bankers o .plain según prefieras
         let rounded = number.rounding(accordingToBehavior:
                                         NSDecimalNumberHandler(
                                             roundingMode: .plain,
@@ -46,14 +45,4 @@ final class ProductCellViewModel: ObservableObject {
     func returnProductQuantity() -> Int{
         return product.quantity
     }
-    
-//    func increment() {
-//        product.quantity += 1
-//    }
-//    
-//    func decrement() {
-//        if product.quantity > 0 {
-//            product.quantity -= 1
-//        }
-//    }
 }

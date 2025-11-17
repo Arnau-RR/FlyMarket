@@ -1,3 +1,12 @@
+//
+//  LaunchView.swift
+//  FlyMarket
+//
+//  Created by Arnau Rivas Rivas on 16/11/25.
+//
+
+import SwiftUI
+
 struct LaunchView: View {
     var body: some View {
         ZStack {

@@ -160,11 +160,12 @@ class ProductsViewModel: ObservableObject {
             
         } else {
             // Si no existe, crear una copia del producto con cantidad 1 y agregarlo
-            productsSelected.append(product)
-            productsSelected[0].quantity += 1
+            var productSelected = product
+            productSelected.quantity = 1
+            productsSelected.append(productSelected)
             
             if let index = productsWithDiscounts.firstIndex(where: { $0.id == product.id }) {
-                productsWithDiscounts[index].quantity += 1
+                productsWithDiscounts[index].quantity = 1
             }
         }
         
@@ -250,6 +251,16 @@ class ProductsViewModel: ObservableObject {
         )
         
         return rounded.stringValue
+    }
+    
+    func getReceiptProductsUpdated(updateProducts: [ProductRemote]) {
+        self.productsSelected = updateProducts
+        
+        for product in updateProducts {
+            if let index = productsWithDiscounts.firstIndex(where: { $0.id == product.id }) {
+                //productsWithDiscounts[index].quantity = qu
+            }
+        }
     }
     
 }

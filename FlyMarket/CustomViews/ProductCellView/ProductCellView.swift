@@ -112,14 +112,12 @@ extension ProductCellView {
         HStack (spacing: 15){
             if (viewModel.returnProductQuantity() != 0) {
                 CircularButton(buttonText: attributedMinor, color: Color.red, size: 44,  width: 44, shape: Capsule(), action: {
-                    //viewModel.decrement()
                     onChange?(viewModel.product, .decrement)
                 })
             }
             
             if (viewModel.returnProductQuantity() != viewModel.product.units) {
                 CircularButton(buttonText: attributedPlus, size: 44,  width: 44, shape: Capsule(), action: {
-                    //viewModel.increment()
                     onChange?(viewModel.product, .increment)
                 })
             }

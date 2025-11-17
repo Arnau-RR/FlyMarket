@@ -45,10 +45,5 @@ final class ReceiptViewModel: ObservableObject {
     
     func removeProducts(at indexSet: IndexSet) {
         products.remove(atOffsets: indexSet)
-        //calculateTotal()
     }
-    
-//    private func calculateTotal() {
-//        totalFormatted = Utils.totalFormatted(products: products)
-//    }
 }
